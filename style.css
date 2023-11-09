@@ -10,7 +10,8 @@
 
 .navbar-brand {
     margin-left: 2cm;
-    color: #ffffff;
+    color: #00ff41 !important;
+
 }
 
 .nav-link {
@@ -18,7 +19,7 @@
     font-family: "Andale Mono";
 }
 
-.navbar {
+.navbar, .navbar-expand-lg, .fixed-top {
     background-color: #002677;
 }
 
@@ -87,7 +88,7 @@
 
 /* display background color black on navbar scroll */
 .navbarScroll.navbarDark {
-    background-color: #707070;
+    background-color: #707070 !important;
     transition: background-color 0.3s ease-in-out;
     opacity: 0.9;
 }
@@ -144,4 +145,13 @@ transition: transform 0.2s ease-in-out; /* Optional: Add a smooth transition eff
 transform: scaleX(1); /* When hovering, scale the underline to its full width */
 }
   
-  
+.scrolled {
+    background-color: rgba(255, 255, 255, 0.9); /* Adjust transparency as needed */
+    transition: background-color 0.3s; /* Smooth transition effect */
+}
+
+/* Change the color of the toggler button to white */
+.navbar-light .navbar-toggler-icon {
+    background-color: #00ff41; /* Background color of the toggler */
+    border: 1px solid #00ff41; /* Border color of the toggler */
+}

@@ -1,12 +1,10 @@
-// add class navbarDark on navbar scroll
-const header = document.querySelector('.navbar');
+window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('.navbar');
+    const scrollPos = window.scrollY;
 
-window.onscroll = function() {
-    var top = window.scrollY;
-    if(top >=100) {
-        header.classList.add('navbarDark');
+    if (scrollPos > 100) {
+        navbar.classList.add('scrolled'); // Add a class for transparency
+    } else {
+        navbar.classList.remove('scrolled'); // Remove the class to revert to the original state
     }
-    else {
-        header.classList.remove('navbarDark');
-    }
-}
+});
