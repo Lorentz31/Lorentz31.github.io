@@ -1,0 +1,147 @@
+#logoddlab {
+    width: 1.5cm;
+    height: auto;
+}
+
+.container {
+    margin-top: 0.2cm;
+    align-items: center;
+}
+
+.navbar-brand {
+    margin-left: 2cm;
+    color: #ffffff;
+}
+
+.nav-link {
+    color: #00ff41 !important;
+    font-family: "Andale Mono";
+}
+
+.navbar {
+    background-color: #002677;
+}
+
+#about {
+    margin-top: 2cm;
+}
+
+
+.rounded-circle{
+    border:1px solid;
+    border-radius:0%;
+    width:4.5cm;
+    height:4.5cm;
+    object-fit: cover;
+    ;
+}
+
+/* services section css */
+
+.card-body {
+    background-color: #07011c;
+    border-style: solid;
+    border-width: 2px 2px 2px 2px;
+    border-color: white;
+    border-radius: 0.3rem;
+}
+
+.card-text {
+    color: #ffffff;
+}
+
+.servicesText.card {
+    height: 280px;
+    cursor: pointer;   
+}
+
+.servicesIcon {
+    font-size: 36px;
+    text-align: center;
+    width: 100%;
+}
+
+.card-title {
+    text-align: center;
+    color: #ffffff;
+}
+
+.card:hover .servicesIcon {
+    color: black;
+}
+
+.servicesText:hover {
+    border: 1px solid green;
+}
+
+
+.btn {
+    background-color: #05058d !important;
+    color: white !important;
+    border-color: #000000 !important;
+}
+
+.btn:hover {
+    border-color: white !important;
+}
+
+/* display background color black on navbar scroll */
+.navbarScroll.navbarDark {
+    background-color: #707070;
+    transition: background-color 0.3s ease-in-out;
+    opacity: 0.9;
+}
+
+/* social media icons styling */
+.social-icons {
+    font-size: 36px;
+    cursor: pointer;
+}
+.fa-facebook:hover {
+    color: #3b5998;
+}
+.fa-instagram:hover {
+    color: #9d5bc9;
+}
+.fa-twitter:hover {
+    color: #1DA1F2;
+}
+.fa-linkedin:hover {
+    color: #0e76a8;
+}
+.fa-envelope:hover {
+    color: white;
+}
+.fab, .fa {
+    color: #000000;
+}
+
+/* footer styling */
+#footer {
+    background-color: #808080;
+    text-align: center;
+}
+
+/**/
+.navbar-nav .nav-link {
+    position: relative;
+    text-decoration: none; /* Remove default underline */
+}
+  
+.navbar-nav .nav-link::after {
+content: "";
+position: absolute;
+left: 0;
+bottom: 5px; /* Adjust this value to control the distance of the underline from the link */
+width: 100%;
+height: 1px; /* Adjust this value to control the thickness of the underline */
+background-color: #00ff41; /* Change this to the color you want for the underline */
+transform: scaleX(0);
+transition: transform 0.2s ease-in-out; /* Optional: Add a smooth transition effect */
+}
+  
+.navbar-nav .nav-link:hover::after {
+transform: scaleX(1); /* When hovering, scale the underline to its full width */
+}
+  
+  
