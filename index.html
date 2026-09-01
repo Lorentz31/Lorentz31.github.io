@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+  <script
+    data-goatcounter="https://lorentz31.goatcounter.com/count"
+    async
+    src="//gc.zgo.at/count.js"
+  ></script>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <meta
+      name="description"
+      content="Official website of Lorenzo Esposito, PhD student at DISFOR, University of Genoa. Research on mathematical learning and cognitive development."
+    />
+
+    <meta property="og:title" content="Lorenzo Esposito - PhD Student" />
+    <meta
+      property="og:description"
+      content="Research on mathematical learning, cognitive development, and psychology at the University of Genoa."
+    />
+    <meta property="og:image" content="./assets/me.jpg" />
+    <meta property="og:type" content="website" />
+
+    <title>Lorenzo Esposito - Home</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul class="menu">
+          <li><a href="index.html">About me</a></li>
+          <li><a href="research.html">Research</a></li>
+          <li><a href="simulations.html">Simulations</a></li>
+          <li>
+            <!-- AGGIUNTA LA CLASSE cv-btn QUI -->
+            <a
+              href="./assets/CV_Profilo_Unige_Eng_20240627.pdf"
+              target="_blank"
+              class="cv-btn"
+              >CV</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="profile fade-in">
+        <div class="photo">
+          <img src="./assets/me.jpg" alt="Photo of Lorenzo" />
+        </div>
+        <div class="description">
+          <h1>Lorenzo Esposito</h1>
+          <p>
+            I am a PhD student at the Department of Educational Sciences
+            (DISFOR), University of Genoa. My research investigates how children
+            learn mathematics, focusing on the cognitive and emotional factors
+            that influence educational outcomes, such as individual differences,
+            math anxiety, intelligence, and gender.
+          </p>
+          <p>
+            To explore these patterns in cognitive development, I conduct field
+            experiments directly in schools and analyze large-scale educational
+            assessments. In this context, I actively collaborate with the
+            psychology departments at the University of Padua and occasionally
+            take part in teaching activities.
+          </p>
+          <p>
+            Beyond my primary research, I have a strong focus on methodology and
+            applied statistics in psychology. I leverage these quantitative
+            tools to design robust experimental frameworks and analyze complex
+            learning processes within educational settings.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <main>
+      <section class="recent-publications fade-in">
+        <h2>Recent Research Publications</h2>
+
+        <ul id="publications-list">
+          <li id="publications-status">Loading publications...</li>
+        </ul>
+
+        <p style="margin-top: 15px; font-size: 0.9em">
+          <a
+            href="https://orcid.org/0009-0004-0483-0463"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View full publication list on ORCID
+            <i class="fas fa-external-link-alt" style="font-size: 0.8em"></i>
+          </a>
+        </p>
+      </section>
+    </main>
+
+    <section class="contacts fade-in">
+      <div class="contacts-box">
+        <div class="contacts-left">
+          <h2>Contacts</h2>
+          <ul class="social-column">
+            <li>
+              <a href="mailto:lorenzo.esposito.work@gmail.com">
+                <i class="fas fa-envelope"></i> Email
+              </a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/in/lorenzo-esposito-437831198/">
+                <i class="fab fa-linkedin"></i> LinkedIn
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.researchgate.net/profile/Lorenzo-Esposito-10"
+              >
+                <i class="fab fa-researchgate"></i> ResearchGate
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://scholar.google.it/citations?user=Dwu1uxIAAAAJ&hl=it"
+              >
+                <i class="fas fa-graduation-cap"></i> Google Scholar
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.scopus.com/authid/detail.uri?authorId=58625909300"
+              >
+                <i class="fas fa-book"></i> Scopus
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/Lorentz31">
+                <i class="fab fa-github"></i> GitHub
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="contacts-right">
+          <h2>Address</h2>
+          <p>Corso Andrea Podestà, 2, 16128</p>
+          <p>Genova (GE), Italy</p>
+          <p>
+            <iframe
+              title="Mappa di Genova, Corso Andrea Podestà"
+              src="https://www.google.com/maps?q=Corso+Andrea+Podest%C3%A0+2,+16128+Genova+GE&output=embed"
+              width="400"
+              height="300"
+              style="border: 0"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            >
+            </iframe>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; <span id="current-year"></span> Lorenzo Esposito</p>
+    </footer>
+
+    <script>
+      const faders = document.querySelectorAll('.fade-in');
+
+      const appearOptions = {
+        threshold: 0.2,
+        rootMargin: '0px 0px -50px 0px',
+      };
+
+      const appearOnScroll = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          } else {
+            entry.target.classList.remove('visible');
+          }
+        });
+      }, appearOptions);
+
+      faders.forEach((fader) => appearOnScroll.observe(fader));
+    </script>
+
+    <script src="script.js"></script>
+  </body>
+</html>

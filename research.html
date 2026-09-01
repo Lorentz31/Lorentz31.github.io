@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <script
+    data-goatcounter="https://lorentz31.goatcounter.com/count"
+    async
+    src="//gc.zgo.at/count.js"
+  ></script>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <meta
+      name="description"
+      content="Research publications and international conferences of Lorenzo Esposito, PhD student at the University of Genoa."
+    />
+    <meta property="og:title" content="Lorenzo Esposito - Research" />
+    <meta
+      property="og:description"
+      content="Read about Lorenzo Esposito's research, latest publications, and international conferences."
+    />
+    <meta property="og:image" content="./assets/me.jpg" />
+    <meta property="og:type" content="website" />
+
+    <title>Lorenzo Esposito - Research</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <ul class="menu">
+          <li><a href="index.html">About me</a></li>
+          <li><a href="research.html">Research</a></li>
+          <li><a href="simulations.html">Simulations</a></li>
+          <li>
+            <a
+              href="./assets/CV_Profilo_Unige_Eng_20240627.pdf"
+              target="_blank"
+              class="cv-btn"
+              >CV</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="recent-publications fade-in">
+        <h2>Research Publications</h2>
+
+        <ul id="publications-list">
+          <li id="publications-status">Loading publications...</li>
+        </ul>
+
+        <p style="margin-top: 15px; font-size: 0.9em">
+          <a
+            href="https://orcid.org/0009-0004-0483-0463"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View full publication list on ORCID
+            <i class="fas fa-external-link-alt" style="font-size: 0.8em"></i>
+          </a>
+        </p>
+      </section>
+    </main>
+
+    <section class="recent-publications fade-in">
+      <h2>International Conferences</h2>
+      <ul>
+        <li>
+          International Society for Intelligence Research (ISIR) (Warsaw, July
+          14-16 2026)
+        </li>
+        <li>
+          International Society for the Study of Individual Differences (ISSID)
+          (Vienna, July 14-18 2025)
+        </li>
+        <li>
+          International Society for Intelligence Research (ISIR) (Zurich, July
+          28-31 2024)
+        </li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>&copy; <span id="current-year"></span> Lorenzo Esposito</p>
+    </footer>
+
+    <script>
+      const faders = document.querySelectorAll('.fade-in');
+
+      const appearOptions = {
+        threshold: 0.2,
+        rootMargin: '0px 0px -50px 0px',
+      };
+
+      const appearOnScroll = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          } else {
+            entry.target.classList.remove('visible');
+          }
+        });
+      }, appearOptions);
+
+      faders.forEach((fader) => appearOnScroll.observe(fader));
+    </script>
+
+    <!-- Script esterno con il fetch delle pubblicazioni -->
+    <script src="script.js"></script>
+
+    <script>
+      document.getElementById('current-year').textContent =
+        new Date().getFullYear();
+    </script>
+  </body>
+</html>

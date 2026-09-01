@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Lorenzo Esposito - Simulations</title>
+
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <!-- Libreria per i colori del codice (Prism) -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      .sim-card {
+        background: #2c2c2c;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border-left: 4px solid #b3ffe5;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+      }
+      .sim-title {
+        color: #b3ffe5;
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+      }
+      .sim-desc {
+        color: #ccc;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+      }
+      .toggle-code-btn {
+        background: #1e1e1e;
+        color: #b3ffe5;
+        border: 1px solid #b3ffe5;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-family: inherit;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+      .toggle-code-btn:hover {
+        background: #b3ffe5;
+        color: #1e1e1e;
+      }
+      .code-container {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease-out;
+      }
+      .code-container pre {
+        margin-top: 1rem !important;
+        border-radius: 6px !important;
+        max-height: 400px;
+        overflow-y: auto;
+        background: #1d1f21 !important;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <ul class="menu">
+          <li><a href="index.html">About me</a></li>
+          <li><a href="research.html">Research</a></li>
+          <li><a href="simulations.html">Simulations</a></li>
+          <li>
+            <a
+              href="./assets/CV_Profilo_Unige_Eng_20240627.pdf"
+              target="_blank"
+              class="cv-btn"
+              >CV</a
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <!-- RIMOSSO IL FADE-IN QUI PER EVITARE CHE L'OPACITÀ RESTI A ZERO -->
+      <section class="recent-publications">
+        <h2>Methodological Simulations</h2>
+        <p style="color: #ccc; margin-bottom: 2rem">
+          All R scripts and Monte Carlo simulations used in my methodological
+          research are open-source. Expand the cards below to inspect the
+          syntax.
+        </p>
+
+        <div id="simulations-container">
+          <p id="sim-status">Loading simulations...</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; <span id="current-year"></span> Lorenzo Esposito</p>
+    </footer>
+
+    <!-- Librerie JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-r.min.js"></script>
+
+    <!-- Script Principale -->
+    <script>
+      document.getElementById('current-year').textContent =
+        new Date().getFullYear();
+
+      function toggleCode(id) {
+        var el = document.getElementById(id);
+        if (el.style.maxHeight) {
+          el.style.maxHeight = null;
+        } else {
+          el.style.maxHeight = el.scrollHeight + 'px';
+        }
+      }
+
+      document.addEventListener('DOMContentLoaded', async () => {
+        const container = document.getElementById('simulations-container');
+        const status = document.getElementById('sim-status');
+
+        const simulationsList = [
+          {
+            title: 'Meta-Analytic SEM: TSSEM vs OSMASEM',
+            desc: 'A Monte Carlo simulation investigating the convergence rate, bias, and statistical power of Two-Stage SEM (TSSEM) and One-Stage Meta-Analytic SEM (OSMASEM).',
+            file: 'simulations/MASEM/Main_20260901.txt',
+          },
+        ];
+
+        status.style.display = 'none';
+
+        for (let i = 0; i < simulationsList.length; i++) {
+          const sim = simulationsList[i];
+          const codeId = 'codeBlock_' + i;
+
+          const div = document.createElement('div');
+          div.className = 'sim-card';
+          div.innerHTML = `
+            <h3 class="sim-title">${sim.title}</h3>
+            <p class="sim-desc">${sim.desc}</p>
+            <button class="toggle-code-btn" onclick="toggleCode('${codeId}')">
+              <i class="fas fa-code"></i> Show / Hide R Code
+            </button>
+            <div id="${codeId}" class="code-container">
+              <pre><code class="language-r" id="text_${codeId}">Fetching code...</code></pre>
+            </div>
+          `;
+          container.appendChild(div);
+
+          try {
+            const response = await fetch(sim.file);
+            const codeElement = document.getElementById('text_' + codeId);
+
+            if (response.ok) {
+              const text = await response.text();
+              codeElement.textContent = text;
+              Prism.highlightElement(codeElement);
+            } else {
+              codeElement.textContent =
+                'Error: Impossibile caricare ' + sim.file;
+            }
+          } catch (error) {
+            document.getElementById('text_' + codeId).textContent =
+              'Fetch failed: ' + error;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

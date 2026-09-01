@@ -1,0 +1,313 @@
+/* RESET BASE */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #1e1e1e; /* grigio scuro */
+  color: #e0e0e0; /* testo chiaro */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* NAVBAR */
+header {
+  width: 100%;
+  padding: 1.2rem 2rem;
+  background: #2c2c2c; /* navbar scura */
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+header .menu {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  align-items: center; /* Centra verticalmente il bottone rispetto ai link */
+}
+
+header .menu a {
+  text-decoration: none;
+  color: #b3ffe5; /* nuovo colore */
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.3s ease, background 0.3s ease;
+}
+
+header .menu a:hover {
+  color: #81e6d9; /* leggermente più scuro al passaggio */
+}
+
+/* STILE SPECIFICO PER IL BOTTONE CV */
+header .menu a.cv-btn {
+  background: #b3ffe5;
+  color: #1e1e1e;
+  padding: 0.4rem 1.2rem;
+  border-radius: 6px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+header .menu a.cv-btn:hover {
+  background: #81e6d9;
+  color: #1e1e1e;
+}
+
+/* MAIN */
+main {
+  flex: 1;
+  padding-top: 140px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.profile {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  max-width: 1200px;
+  width: 90%;
+  padding: 2rem;
+  margin: 1rem auto -6rem auto;
+  background: #2c2c2c;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+  flex-wrap: wrap;
+  overflow: hidden;
+  border-top: 5px solid #b3ffe5; /* AGGIUNTO: Bordo colorato superiore */
+}
+
+.photo img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #444;
+}
+
+.description {
+  flex: 1;
+}
+
+.description h1 {
+  color: #b3ffe5; /* titolo principale */
+  margin-bottom: 0.5rem;
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+.description p {
+  color: #ccc;
+  max-width: 800px;
+  font-size: 1.05rem;
+  margin-bottom: 1rem; 
+}
+
+.description p:last-child {
+  margin-bottom: 0; 
+}
+
+/* CONTATTI */
+.contacts {
+  display: flex;
+  justify-content: center;
+  margin: 2rem auto;
+  width: 100%;
+}
+
+.contacts .contacts-box {
+  display: flex;
+  justify-content: space-between;
+  background: #2c2c2c;
+  border-radius: 12px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 1200px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+  flex-wrap: wrap;
+  overflow: hidden;
+  gap: 2rem;
+  border-top: 5px solid #b3ffe5; /* AGGIUNTO: Bordo colorato superiore */
+}
+
+.contacts-left, 
+.contacts-right {
+  flex: 1;
+  min-width: 280px; 
+}
+
+.contacts-left h2,
+.contacts-right h2 {
+  color: #b3ffe5; /* titoli sezioni */
+  font-weight: 700;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.contacts .social-column {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.contacts .social-column a {
+  text-decoration: none;
+  color: #b3ffe5;
+  font-weight: 600;
+  font-size: 1.05rem;
+  transition: all 0.3s ease; 
+  display: inline-block; 
+}
+
+.contacts .social-column a:hover {
+  transform: translateX(8px); 
+}
+
+/* AGGIUNTO: Colori specifici (Brand) al passaggio del mouse sui social */
+.contacts .social-column a[href^="mailto"]:hover { color: #ea4335; } /* Email - Rosso */
+.contacts .social-column a[href*="linkedin.com"]:hover { color: #0a66c2; } /* LinkedIn - Blu */
+.contacts .social-column a[href*="researchgate.net"]:hover { color: #00ccbb; } /* ResearchGate - Verde acqua */
+.contacts .social-column a[href*="scholar.google"]:hover { color: #4285f4; } /* Google Scholar - Azzurro */
+.contacts .social-column a[href*="scopus.com"]:hover { color: #ff8200; } /* Scopus - Arancione */
+.contacts .social-column a[href*="github.com"]:hover { color: #ffffff; } /* GitHub - Bianco */
+
+
+.contacts-right p {
+  margin-bottom: 0.3rem;
+  font-size: 1.05rem;
+  color: #ccc;
+}
+
+.contacts-right iframe {
+  width: 100%;
+  max-width: 100%;
+  height: 220px;
+  border: none;
+  border-radius: 8px;
+  margin-top: 0.8rem;
+}
+
+/* PUBBLICAZIONI */
+.recent-publications {
+  max-width: 1200px;
+  width: 90%;
+  margin: 1rem auto 3rem auto;
+  padding: 2rem;
+  background: #2c2c2c;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+  border-top: 5px solid #b3ffe5; /* AGGIUNTO: Bordo colorato superiore */
+}
+
+.recent-publications h2 {
+  color: #b3ffe5;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.recent-publications ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.recent-publications li {
+  color: #e0e0e0;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.recent-publications a {
+  color: #b3ffe5;
+  text-decoration: none;
+  font-weight: 600;
+}
+.recent-publications a:hover {
+  color: #81e6d9;
+}
+
+/* STILI DELLE PUBBLICAZIONI GENERATE IN JAVASCRIPT */
+.publication-card {
+  background: #3a3a3a; 
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid #b3ffe5;
+}
+
+.publication-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.publication-authors {
+  font-size: 1rem;
+  color: #ccc;
+  margin-bottom: 0.5rem;
+}
+
+.publication-authors strong {
+  color: #b3ffe5; 
+}
+
+.publication-meta {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: #aaa;
+  margin-bottom: 0.8rem;
+}
+
+/* FOOTER */
+footer {
+  background: #2c2c2c;
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #aaa;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* ANIMAZIONI */
+.fade-in {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease-out;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .profile {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .contacts .contacts-box {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .contacts-right iframe {
+    height: 180px;
+  }
+}
