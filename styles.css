@@ -304,7 +304,7 @@ footer {
 
   .contacts .contacts-box {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch; /* RIPRISTINATO IL FIX DELLA MAPPA */
   }
 
   .contacts-right iframe {
@@ -312,26 +312,27 @@ footer {
   }
 }
 
-/* --- STILI MENU HAMBURGER MOBILE --- */
+/* --- STILI MENU HAMBURGER MOBILE (RIPRISTINATO) --- */
 .menu-toggle {
   display: none;
   color: #b3ffe5;
   font-size: 1.8rem;
   cursor: pointer;
+  position: absolute; 
+  right: 2rem;
+  top: 1.2rem;
 }
 
 @media (max-width: 768px) {
-  /* Mostra l'icona hamburger */
   .menu-toggle {
     display: block;
   }
 
-  /* Nasconde i link e li prepara per la tendina */
   header .menu {
     display: none; 
     flex-direction: column;
     position: absolute;
-    top: 100%; /* Si attacca esattamente sotto la barra scura */
+    top: 100%; 
     left: 0;
     width: 100%;
     background: #2c2c2c;
@@ -340,8 +341,43 @@ footer {
     text-align: center;
   }
 
-  /* Classe che il Javascript aggiunge per far apparire la tendina */
   header .menu.active {
-    display: flex; 
+    display: flex !important; 
   }
+}
+
+/* --- STILE LOGO 'LE' (Elegante e minimale - RIPRISTINATO) --- */
+header {
+  justify-content: space-between !important; 
+  align-items: center;
+}
+
+.logo a {
+  color: #e0e0e0; 
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  position: relative;
+  transition: color 0.3s ease;
+  padding-bottom: 4px;
+}
+
+.logo a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #b3ffe5;
+  transition: width 0.3s ease;
+}
+
+.logo a:hover {
+  color: #b3ffe5;
+}
+
+.logo a:hover::after {
+  width: 100%;
 }

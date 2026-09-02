@@ -31,8 +31,13 @@
 
   <body>
     <header>
-      <nav style="width: 100%; display: flex; justify-content: flex-end;">
-        <!-- Icona Hamburger (nascosta su PC, visibile su mobile) -->
+      <!-- Logo a sinistra -->
+      <div class="logo">
+        <a href="index.html">LE</a>
+      </div>
+      
+      <!-- Navigazione a destra -->
+      <nav>
         <div class="menu-toggle" id="mobile-menu">
           <i class="fas fa-bars"></i>
         </div>
@@ -95,7 +100,7 @@
       const faders = document.querySelectorAll('.fade-in');
 
       const appearOptions = {
-        threshold: 0.2,
+        threshold: 0,
         rootMargin: '0px 0px -50px 0px',
       };
 
@@ -117,13 +122,15 @@
 
     <!-- Script Hamburger Menu -->
     <script>
-      const mobileMenuBtn = document.getElementById('mobile-menu');
-      const navMenu = document.getElementById('nav-menu');
-      if (mobileMenuBtn && navMenu) {
-        mobileMenuBtn.addEventListener('click', () => {
-          navMenu.classList.toggle('active');
-        });
-      }
+      document.addEventListener('DOMContentLoaded', () => {
+        const mobileMenuBtn = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+        if (mobileMenuBtn && navMenu) {
+          mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+          });
+        }
+      });
     </script>
 
     <script>

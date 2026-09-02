@@ -31,8 +31,13 @@
   </head>
   <body>
     <header>
-      <nav style="width: 100%; display: flex; justify-content: flex-end;">
-        <!-- Icona Hamburger (nascosta su PC, visibile su mobile) -->
+      <!-- Logo a sinistra -->
+      <div class="logo">
+        <a href="index.html">LE</a>
+      </div>
+      
+      <!-- Navigazione a destra -->
+      <nav>
         <div class="menu-toggle" id="mobile-menu">
           <i class="fas fa-bars"></i>
         </div>
@@ -147,19 +152,16 @@
           <h2>Address</h2>
           <p>Corso Andrea Podestà, 2, 16128</p>
           <p>Genova (GE), Italy</p>
-          <p>
-            <iframe
-              title="Mappa di Genova, Corso Andrea Podestà"
-              src="https://www.google.com/maps?q=Corso+Andrea+Podest%C3%A0+2,+16128+Genova+GE&output=embed"
-              width="400"
-              height="300"
-              style="border: 0"
-              allowfullscreen=""
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-            >
-            </iframe>
-          </p>
+          
+          <!-- MAPPA BLINDATA -->
+          <iframe
+            title="Mappa di Genova, Corso Andrea Podestà"
+            src="https://www.google.com/maps?q=Corso+Andrea+Podest%C3%A0+2,+16128+Genova+GE&output=embed"
+            style="border: 0; width: 100%; height: 250px; border-radius: 8px; margin-top: 1rem; display: block;"
+            allowfullscreen=""
+            referrerpolicy="no-referrer-when-downgrade"
+          >
+          </iframe>
         </div>
       </div>
     </section>
@@ -168,7 +170,7 @@
       const faders = document.querySelectorAll('.fade-in');
 
       const appearOptions = {
-        threshold: 0.2,
+        threshold: 0,
         rootMargin: '0px 0px -50px 0px',
       };
 
@@ -190,6 +192,20 @@
     </footer>
 
     <script src="script.js"></script>
+
+    <!-- Script Hamburger Menu -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const mobileMenuBtn = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+        if (mobileMenuBtn && navMenu) {
+          mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+          });
+        }
+      });
+    </script>
+
     <script>
       document.getElementById('current-year').textContent = new Date().getFullYear();
     </script>

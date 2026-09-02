@@ -69,8 +69,13 @@
 
   <body>
     <header>
-      <nav style="width: 100%; display: flex; justify-content: flex-end;">
-        <!-- Icona Hamburger (nascosta su PC, visibile su mobile) -->
+      <!-- Logo a sinistra -->
+      <div class="logo">
+        <a href="index.html">LE</a>
+      </div>
+      
+      <!-- Navigazione a destra -->
+      <nav>
         <div class="menu-toggle" id="mobile-menu">
           <i class="fas fa-bars"></i>
         </div>
@@ -110,18 +115,41 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-r.min.js"></script>
 
+    <script>
+      const faders = document.querySelectorAll('.fade-in');
+
+      const appearOptions = {
+        threshold: 0,
+        rootMargin: '0px 0px -50px 0px',
+      };
+
+      const appearOnScroll = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          } else {
+            entry.target.classList.remove('visible');
+          }
+        });
+      }, appearOptions);
+
+      faders.forEach((fader) => appearOnScroll.observe(fader));
+    </script>
+    
     <!-- Script esterno con il fetch delle pubblicazioni -->
     <script src="script.js"></script>
 
     <!-- Script Hamburger Menu -->
     <script>
-      const mobileMenuBtn = document.getElementById('mobile-menu');
-      const navMenu = document.getElementById('nav-menu');
-      if (mobileMenuBtn && navMenu) {
-        mobileMenuBtn.addEventListener('click', () => {
-          navMenu.classList.toggle('active');
-        });
-      }
+      document.addEventListener('DOMContentLoaded', () => {
+        const mobileMenuBtn = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+        if (mobileMenuBtn && navMenu) {
+          mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+          });
+        }
+      });
     </script>
 
     <!-- Script Principale -->
