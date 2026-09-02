@@ -4,7 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Lorenzo Esposito - Simulations</title>
-
+<!-- Favicon generata via codice (Logo LE) -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231e1e1e'/><text x='50' y='70' font-family='Arial' font-size='60' font-weight='bold' fill='%23b3ffe5' text-anchor='middle'>LE</text></svg>">
     <link rel="stylesheet" href="styles.css" />
     <link
       rel="stylesheet"
@@ -65,6 +66,7 @@
         background: #1d1f21 !important;
       }
     </style>
+    <script data-goatcounter="https://lorentz31.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
   </head>
 
   <body>
@@ -93,7 +95,7 @@
 
     <main>
       <!-- RIMOSSO IL FADE-IN QUI PER EVITARE CHE L'OPACITÀ RESTI A ZERO -->
-      <section class="recent-publications">
+      <section class="recent-publications fade-in">
         <h2>Methodological Simulations</h2>
         <p style="color: #ccc; margin-bottom: 2rem">
           All R scripts and Monte Carlo simulations used in my methodological
@@ -178,8 +180,18 @@
           },
           {
             title: 'Clustering: LPA vs K-means',
-            desc: 'A Monte Carlo simulation investigating the bias of Latent Profile Analysis (LPA) and K-means cluster analysis.',
+            desc: 'A Monte Carlo simulation investigating the class enumeration bias of Latent Profile Analysis (LPA) and K-means cluster analysis.',
             file: 'simulations/LPA/SimulationPLA_20260901.r',
+          },
+          {
+            title: 'Power: GLMM vs Meta-analysis',
+            desc: 'A Monte Carlo simulation comparing the statistical power and singularity rates of Generalized Linear Mixed Models (GLMM) and random-effects meta-analysis in clustered data.',
+            file: 'simulations/Metaanalysis/Simulation_GLMMvsMeta_20260902.R',
+          },
+          {
+            title: 'Outliers & Spurious Interactions',
+            desc: 'A Monte Carlo simulation demonstrating how asymmetric outliers create high leverage points, inflating Type I error rates in interaction models.',
+            file: 'simulations/Regressions/OutliersInteraction_20260902.R',
           },
         ];
 
