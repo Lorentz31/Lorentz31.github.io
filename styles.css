@@ -311,3 +311,37 @@ footer {
     height: 180px;
   }
 }
+
+/* --- STILI MENU HAMBURGER MOBILE --- */
+.menu-toggle {
+  display: none;
+  color: #b3ffe5;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  /* Mostra l'icona hamburger */
+  .menu-toggle {
+    display: block;
+  }
+
+  /* Nasconde i link e li prepara per la tendina */
+  header .menu {
+    display: none; 
+    flex-direction: column;
+    position: absolute;
+    top: 100%; /* Si attacca esattamente sotto la barra scura */
+    left: 0;
+    width: 100%;
+    background: #2c2c2c;
+    padding: 1.5rem 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+    text-align: center;
+  }
+
+  /* Classe che il Javascript aggiunge per far apparire la tendina */
+  header .menu.active {
+    display: flex; 
+  }
+}

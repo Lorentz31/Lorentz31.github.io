@@ -31,18 +31,18 @@
 
   <body>
     <header>
-      <nav>
-        <ul class="menu">
+      <nav style="width: 100%; display: flex; justify-content: flex-end;">
+        <!-- Icona Hamburger (nascosta su PC, visibile su mobile) -->
+        <div class="menu-toggle" id="mobile-menu">
+          <i class="fas fa-bars"></i>
+        </div>
+        
+        <ul class="menu" id="nav-menu">
           <li><a href="index.html">About me</a></li>
           <li><a href="research.html">Research</a></li>
           <li><a href="simulations.html">Simulations</a></li>
           <li>
-            <a
-              href="./assets/CV_Profilo_Unige_Eng_20240627.pdf"
-              target="_blank"
-              class="cv-btn"
-              >CV</a
-            >
+            <a href="./assets/CV_Profilo_Unige_Eng_20240627.pdf" target="_blank" class="cv-btn">CV</a>
           </li>
         </ul>
       </nav>
@@ -114,6 +114,17 @@
 
     <!-- Script esterno con il fetch delle pubblicazioni -->
     <script src="script.js"></script>
+
+    <!-- Script Hamburger Menu -->
+    <script>
+      const mobileMenuBtn = document.getElementById('mobile-menu');
+      const navMenu = document.getElementById('nav-menu');
+      if (mobileMenuBtn && navMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+          navMenu.classList.toggle('active');
+        });
+      }
+    </script>
 
     <script>
       document.getElementById('current-year').textContent =
