@@ -172,26 +172,28 @@
         const container = document.getElementById('simulations-container');
         const status = document.getElementById('sim-status');
 
+        const repoBase = 'https://raw.githubusercontent.com/lorentz31/simulations/main/';
+
         const simulationsList = [
           {
             title: 'Meta-Analytic SEM: TSSEM vs OSMASEM',
             desc: 'A Monte Carlo simulation investigating the convergence rate, bias, and statistical power of Two-Stage SEM (TSSEM) and One-Stage Meta-Analytic SEM (OSMASEM).',
-            file: 'simulations/MASEM/Main_20260901.r',
+            file: repoBase + 'MASEM/Main_20260901.r',
           },
           {
             title: 'Clustering: LPA vs K-means',
             desc: 'A Monte Carlo simulation investigating the class enumeration bias of Latent Profile Analysis (LPA) and K-means cluster analysis.',
-            file: 'simulations/LPA/SimulationPLA_20260901.r',
+            file: repoBase + 'LPA/SimulationPLA_20260901.r',
           },
           {
             title: 'Power: GLMM vs Meta-analysis',
             desc: 'A Monte Carlo simulation comparing the statistical power and singularity rates of Generalized Linear Mixed Models (GLMM) and random-effects meta-analysis in clustered data.',
-            file: 'simulations/Metaanalysis/Simulation_GLMMvsMeta_20260902.R',
+            file: repoBase + 'Metaanalysis/Simulation_GLMMvsMeta_20260902.R',
           },
           {
             title: 'Outliers & Spurious Interactions',
             desc: 'A Monte Carlo simulation demonstrating how asymmetric outliers create high leverage points, inflating Type I error rates in interaction models.',
-            file: 'simulations/Regressions/OutliersInteraction_20260902.R',
+            file: repoBase + 'Regressions/OutliersInteraction_20260902.R',
           },
         ];
 
