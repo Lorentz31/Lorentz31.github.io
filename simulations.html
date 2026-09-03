@@ -86,6 +86,7 @@
           <li><a href="index.html">About me</a></li>
           <li><a href="research.html">Research</a></li>
           <li><a href="simulations.html">Simulations</a></li>
+          <li><a href="teaching.html">Teaching</a></li>
           <li>
             <a href="./assets/CV_Profilo_Unige_Eng_20240627.pdf" target="_blank" class="cv-btn">CV</a>
           </li>
@@ -143,15 +144,131 @@
 
     <!-- Script Hamburger Menu -->
     <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const mobileMenuBtn = document.getElementById('mobile-menu');
-        const navMenu = document.getElementById('nav-menu');
-        if (mobileMenuBtn && navMenu) {
-          mobileMenuBtn.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-          });
-        }
-      });
+      document.addEventListener('DOMContentLoaded', async () => {
+  const container = document.getElementById('simulations-container');
+  const status = document.getElementById('sim-status');
+
+  const repoBase =
+    'https://raw.githubusercontent.com/lorentz31/simulations/main/';
+
+  const simulationsList = [
+    {
+      title: 'Meta-Analytic SEM: TSSEM vs OSMASEM',
+      file: repoBase + 'MASEM/Main_20260901.r',
+    },
+    {
+      title: 'Clustering: LPA vs K-means',
+      file: repoBase + 'LPA/SimulationPLA_20260901.r',
+    },
+    {
+      title: 'Power: GLMM vs Meta-analysis',
+      file:
+        repoBase +
+        'Metaanalysis/Simulation_GLMMvsMeta_20260902.R',
+    },
+    {
+      title: 'Outliers & Spurious Interactions',
+      file:
+        repoBase +
+        'Regressions/OutliersInteraction_20260902.R',
+    },
+  ];
+
+  function getDescription(markdown) {
+    return markdown
+      .replace(/^# .*\r?\n+/, '')
+      .trim();
+  }
+
+  /* Descrizione generale presa dal README.md */
+  const sectionDescription =
+    document.querySelector('.recent-publications > p');
+
+  try {
+    const response = await fetch(repoBase + 'README.md');
+
+    if (response.ok) {
+      const markdown = await response.text();
+      sectionDescription.textContent =
+        getDescription(markdown);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+
+  status.style.display = 'none';
+
+  for (let i = 0; i < simulationsList.length; i++) {
+    const sim = simulationsList[i];
+    const codeId = 'codeBlock_' + i;
+    const descriptionId = 'description_' + i;
+
+    /* Ricava automaticamente il file .md */
+    const descriptionFile =
+      sim.file.replace(/\.r$/i, '.md');
+
+    let description = 'Description unavailable.';
+
+    try {
+      const response = await fetch(descriptionFile);
+
+      if (response.ok) {
+        const markdown = await response.text();
+        description = getDescription(markdown);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
+    const div = document.createElement('div');
+    div.className = 'sim-card';
+
+    div.innerHTML = `
+      <h3 class="sim-title">${sim.title}</h3>
+
+      <p class="sim-desc" id="${descriptionId}"></p>
+
+      <button
+        class="toggle-code-btn"
+        onclick="toggleCode('${codeId}')"
+      >
+        <i class="fas fa-code"></i>
+        Show / Hide R Code
+      </button>
+
+      <div id="${codeId}" class="code-container">
+        <pre><code
+          class="language-r"
+          id="text_${codeId}"
+        >Fetching code...</code></pre>
+      </div>
+    `;
+
+    container.appendChild(div);
+
+    document.getElementById(descriptionId).textContent =
+      description;
+
+    try {
+      const response = await fetch(sim.file);
+      const codeElement =
+        document.getElementById('text_' + codeId);
+
+      if (response.ok) {
+        const code = await response.text();
+        codeElement.textContent = code;
+        Prism.highlightElement(codeElement);
+      } else {
+        codeElement.textContent =
+          'Error: Impossibile caricare ' + sim.file;
+      }
+    } catch (error) {
+      document.getElementById(
+        'text_' + codeId
+      ).textContent = 'Fetch failed: ' + error;
+    }
+  }
+});
     </script>
 
     <!-- Script Principale -->
@@ -174,28 +291,7 @@
 
         const repoBase = 'https://raw.githubusercontent.com/lorentz31/simulations/main/';
 
-        const simulationsList = [
-          {
-            title: 'Meta-Analytic SEM: TSSEM vs OSMASEM',
-            desc: 'A Monte Carlo simulation investigating the convergence rate, bias, and statistical power of Two-Stage SEM (TSSEM) and One-Stage Meta-Analytic SEM (OSMASEM).',
-            file: repoBase + 'MASEM/Main_20260901.r',
-          },
-          {
-            title: 'Clustering: LPA vs K-means',
-            desc: 'A Monte Carlo simulation investigating the class enumeration bias of Latent Profile Analysis (LPA) and K-means cluster analysis.',
-            file: repoBase + 'LPA/SimulationPLA_20260901.r',
-          },
-          {
-            title: 'Power: GLMM vs Meta-analysis',
-            desc: 'A Monte Carlo simulation comparing the statistical power and singularity rates of Generalized Linear Mixed Models (GLMM) and random-effects meta-analysis in clustered data.',
-            file: repoBase + 'Metaanalysis/Simulation_GLMMvsMeta_20260902.R',
-          },
-          {
-            title: 'Outliers & Spurious Interactions',
-            desc: 'A Monte Carlo simulation demonstrating how asymmetric outliers create high leverage points, inflating Type I error rates in interaction models.',
-            file: repoBase + 'Regressions/OutliersInteraction_20260902.R',
-          },
-        ];
+        
 
         status.style.display = 'none';
 
