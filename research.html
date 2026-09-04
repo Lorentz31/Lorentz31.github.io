@@ -79,20 +79,10 @@
     </main>
 
     <section class="recent-publications fade-in">
-      <h2>International Conferences</h2>
-      <ul>
-        <li>
-          International Society for Intelligence Research (ISIR) (Warsaw, July
-          14-16 2026)
-        </li>
-        <li>
-          International Society for the Study of Individual Differences (ISSID)
-          (Vienna, July 14-18 2025)
-        </li>
-        <li>
-          International Society for Intelligence Research (ISIR) (Zurich, July
-          28-31 2024)
-        </li>
+      <h2 id="conferences-title">International Conferences</h2>
+    
+      <ul id="conferences-list">
+        <li>Loading conferences...</li>
       </ul>
     </section>
 
@@ -123,6 +113,59 @@
 
     <!-- Script esterno con il fetch delle pubblicazioni -->
     <script src="script.js"></script>
+
+    <!-- Caricamento conferenze da conferences.md -->
+    <script>
+      document.addEventListener('DOMContentLoaded', async () => {
+        const titleElement =
+          document.getElementById('conferences-title');
+
+        const listElement =
+          document.getElementById('conferences-list');
+
+        try {
+          const response = await fetch('conferences.md');
+
+          if (!response.ok) {
+            throw new Error('Unable to load conferences.md');
+          }
+
+          const markdown = await response.text();
+
+          const lines = markdown
+            .split(/\r?\n/)
+            .map((line) => line.trim())
+            .filter((line) => line !== '');
+
+          const titleLine =
+            lines.find((line) => line.startsWith('# '));
+
+          const conferenceLines =
+            lines.filter((line) => line.startsWith('- '));
+
+          if (titleLine) {
+            titleElement.textContent =
+              titleLine.replace(/^#\s+/, '');
+          }
+
+          listElement.innerHTML = '';
+
+          conferenceLines.forEach((line) => {
+            const item = document.createElement('li');
+
+            item.textContent =
+              line.replace(/^-\s+/, '');
+
+            listElement.appendChild(item);
+          });
+        } catch (error) {
+          listElement.innerHTML =
+            '<li>Unable to load conferences.</li>';
+
+          console.error(error);
+        }
+      });
+    </script>
 
     <!-- Script Hamburger Menu -->
     <script>
