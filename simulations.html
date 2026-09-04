@@ -143,194 +143,171 @@
     <script src="script.js"></script>
 
     <!-- Script Hamburger Menu -->
-    <script>
-      document.addEventListener('DOMContentLoaded', async () => {
-  const container = document.getElementById('simulations-container');
-  const status = document.getElementById('sim-status');
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuBtn = document.getElementById('mobile-menu');
+    const navMenu = document.getElementById('nav-menu');
 
-  const repoBase =
-    'https://raw.githubusercontent.com/lorentz31/simulations/main/';
-
-  const simulationsList = [
-    {
-      title: 'Meta-Analytic SEM: TSSEM vs OSMASEM',
-      file: repoBase + 'MASEM/Main_20260901.r',
-    },
-    {
-      title: 'Clustering: LPA vs K-means',
-      file: repoBase + 'LPA/SimulationPLA_20260901.r',
-    },
-    {
-      title: 'Power: GLMM vs Meta-analysis',
-      file:
-        repoBase +
-        'Metaanalysis/Simulation_GLMMvsMeta_20260902.R',
-    },
-    {
-      title: 'Outliers & Spurious Interactions',
-      file:
-        repoBase +
-        'Regressions/OutliersInteraction_20260902.R',
-    },
-  ];
-
-  function getDescription(markdown) {
-    return markdown
-      .replace(/^# .*\r?\n+/, '')
-      .trim();
-  }
-
-  /* Descrizione generale presa dal README.md */
-  const sectionDescription =
-    document.querySelector('.recent-publications > p');
-
-  try {
-    const response = await fetch(repoBase + 'README.md');
-
-    if (response.ok) {
-      const markdown = await response.text();
-      sectionDescription.textContent =
-        getDescription(markdown);
+    if (mobileMenuBtn && navMenu) {
+      mobileMenuBtn.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+      });
     }
-  } catch (error) {
-    console.error(error);
+  });
+</script>
+
+<!-- Script Principale -->
+<script>
+  document.getElementById('current-year').textContent =
+    new Date().getFullYear();
+
+  function toggleCode(id) {
+    const el = document.getElementById(id);
+
+    if (el.style.maxHeight) {
+      el.style.maxHeight = null;
+    } else {
+      el.style.maxHeight = el.scrollHeight + 'px';
+    }
   }
 
-  status.style.display = 'none';
+  document.addEventListener('DOMContentLoaded', async () => {
+    const container =
+      document.getElementById('simulations-container');
 
-  for (let i = 0; i < simulationsList.length; i++) {
-    const sim = simulationsList[i];
-    const codeId = 'codeBlock_' + i;
-    const descriptionId = 'description_' + i;
+    const status =
+      document.getElementById('sim-status');
 
-    /* Ricava automaticamente il file .md */
-    const descriptionFile =
-      sim.file.replace(/\.r$/i, '.md');
+    const repoBase =
+      'https://raw.githubusercontent.com/lorentz31/simulations/main/';
 
-    let description = 'Description unavailable.';
+    const simulationsList = [
+      {
+        title: 'Meta-Analytic SEM: TSSEM vs OSMASEM',
+        file: repoBase + 'MASEM/Main_20260901.r',
+      },
+      {
+        title: 'Clustering: LPA vs K-means',
+        file: repoBase + 'LPA/SimulationPLA_20260901.r',
+      },
+      {
+        title: 'Power: GLMM vs Meta-analysis',
+        file:
+          repoBase +
+          'Metaanalysis/Simulation_GLMMvsMeta_20260902.R',
+      },
+      {
+        title: 'Outliers & Spurious Interactions',
+        file:
+          repoBase +
+          'Regressions/OutliersInteraction_20260902.R',
+      },
+    ];
+
+    function getDescription(markdown) {
+      return markdown
+        .replace(/^# .*\r?\n+/, '')
+        .trim();
+    }
+
+    const sectionDescription =
+      document.querySelector('.recent-publications > p');
 
     try {
-      const response = await fetch(descriptionFile);
+      const response =
+        await fetch(repoBase + 'README.md');
 
       if (response.ok) {
         const markdown = await response.text();
-        description = getDescription(markdown);
+
+        sectionDescription.textContent =
+          getDescription(markdown);
       }
     } catch (error) {
       console.error(error);
     }
 
-    const div = document.createElement('div');
-    div.className = 'sim-card';
+    status.style.display = 'none';
 
-    div.innerHTML = `
-      <h3 class="sim-title">${sim.title}</h3>
+    for (let i = 0; i < simulationsList.length; i++) {
+      const sim = simulationsList[i];
+      const codeId = 'codeBlock_' + i;
+      const descriptionId = 'description_' + i;
 
-      <p class="sim-desc" id="${descriptionId}"></p>
+      const descriptionFile =
+        sim.file.replace(/\.r$/i, '.md');
 
-      <button
-        class="toggle-code-btn"
-        onclick="toggleCode('${codeId}')"
-      >
-        <i class="fas fa-code"></i>
-        Show / Hide R Code
-      </button>
+      let description = 'Description unavailable.';
 
-      <div id="${codeId}" class="code-container">
-        <pre><code
-          class="language-r"
-          id="text_${codeId}"
-        >Fetching code...</code></pre>
-      </div>
-    `;
+      try {
+        const response =
+          await fetch(descriptionFile);
 
-    container.appendChild(div);
-
-    document.getElementById(descriptionId).textContent =
-      description;
-
-    try {
-      const response = await fetch(sim.file);
-      const codeElement =
-        document.getElementById('text_' + codeId);
-
-      if (response.ok) {
-        const code = await response.text();
-        codeElement.textContent = code;
-        Prism.highlightElement(codeElement);
-      } else {
-        codeElement.textContent =
-          'Error: Impossibile caricare ' + sim.file;
+        if (response.ok) {
+          const markdown = await response.text();
+          description = getDescription(markdown);
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      document.getElementById(
-        'text_' + codeId
-      ).textContent = 'Fetch failed: ' + error;
-    }
-  }
-});
-    </script>
 
-    <!-- Script Principale -->
-    <script>
-      document.getElementById('current-year').textContent =
-        new Date().getFullYear();
+      const card = document.createElement('div');
+      card.className = 'sim-card';
 
-      function toggleCode(id) {
-        var el = document.getElementById(id);
-        if (el.style.maxHeight) {
-          el.style.maxHeight = null;
+      card.innerHTML = `
+        <h3 class="sim-title">${sim.title}</h3>
+
+        <p
+          class="sim-desc"
+          id="${descriptionId}"
+        ></p>
+
+        <button
+          class="toggle-code-btn"
+          onclick="toggleCode('${codeId}')"
+        >
+          <i class="fas fa-code"></i>
+          Show / Hide R Code
+        </button>
+
+        <div
+          id="${codeId}"
+          class="code-container"
+        >
+          <pre><code
+            class="language-r"
+            id="text_${codeId}"
+          >Fetching code...</code></pre>
+        </div>
+      `;
+
+      container.appendChild(card);
+
+      document
+        .getElementById(descriptionId)
+        .textContent = description;
+
+      try {
+        const response = await fetch(sim.file);
+
+        const codeElement =
+          document.getElementById('text_' + codeId);
+
+        if (response.ok) {
+          const code = await response.text();
+          codeElement.textContent = code;
+          Prism.highlightElement(codeElement);
         } else {
-          el.style.maxHeight = el.scrollHeight + 'px';
+          codeElement.textContent =
+            'Error: Impossibile caricare ' + sim.file;
         }
+      } catch (error) {
+        document.getElementById(
+          'text_' + codeId
+        ).textContent = 'Fetch failed: ' + error;
       }
-
-      document.addEventListener('DOMContentLoaded', async () => {
-        const container = document.getElementById('simulations-container');
-        const status = document.getElementById('sim-status');
-
-        const repoBase = 'https://raw.githubusercontent.com/lorentz31/simulations/main/';
-
-        
-
-        status.style.display = 'none';
-
-        for (let i = 0; i < simulationsList.length; i++) {
-          const sim = simulationsList[i];
-          const codeId = 'codeBlock_' + i;
-
-          const div = document.createElement('div');
-          div.className = 'sim-card';
-          div.innerHTML = `
-            <h3 class="sim-title">${sim.title}</h3>
-            <p class="sim-desc">${sim.desc}</p>
-            <button class="toggle-code-btn" onclick="toggleCode('${codeId}')">
-              <i class="fas fa-code"></i> Show / Hide R Code
-            </button>
-            <div id="${codeId}" class="code-container">
-              <pre><code class="language-r" id="text_${codeId}">Fetching code...</code></pre>
-            </div>
-          `;
-          container.appendChild(div);
-
-          try {
-            const response = await fetch(sim.file);
-            const codeElement = document.getElementById('text_' + codeId);
-
-            if (response.ok) {
-              const text = await response.text();
-              codeElement.textContent = text;
-              Prism.highlightElement(codeElement);
-            } else {
-              codeElement.textContent =
-                'Error: Impossibile caricare ' + sim.file;
-            }
-          } catch (error) {
-            document.getElementById('text_' + codeId).textContent =
-              'Fetch failed: ' + error;
-          }
-        }
-      });
-    </script>
+    }
+  });
+</script>
   </body>
 </html>

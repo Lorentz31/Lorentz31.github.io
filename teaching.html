@@ -225,6 +225,20 @@
 
     <script src="script.js"></script>
 
+        <!-- Script Hamburger Menu -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const mobileMenuBtn = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+
+        if (mobileMenuBtn && navMenu) {
+          mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+          });
+        }
+      });
+    </script>
+
     <script>
   document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('current-year').textContent =
@@ -370,17 +384,7 @@
       );
     });
 
-    const mobileMenuBtn =
-      document.getElementById('mobile-menu');
-
-    const navMenu =
-      document.getElementById('nav-menu');
-
-    if (mobileMenuBtn && navMenu) {
-      mobileMenuBtn.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-      });
-    }
+    
   });
 </script>
   </body>
