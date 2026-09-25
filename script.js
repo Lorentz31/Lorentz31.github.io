@@ -194,7 +194,7 @@ function countUp(el, target, ms = 1200) {
 document.addEventListener('DOMContentLoaded', () => {
   const logo = document.querySelector('.logo a');
   if (!logo) return;
-  const CAP = '<img src="assets/cap.svg" alt="">';
+  const CAP = '<img src="assets/cap-accent.svg" alt="">';
   const onHome = /\/(index\.html)?$/.test(location.pathname);
   let clicks = 0, timer;
 
