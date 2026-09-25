@@ -114,3 +114,113 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
+document.addEventListener('DOMContentLoaded', async () => {
+  const list = document.getElementById('reviews-list');
+  const ORCID = '0009-0004-0483-0463';
+
+  try {
+    const res = await fetch(`https://pub.orcid.org/v3.0/${ORCID}/peer-reviews`, {
+      headers: { Accept: 'application/json' },
+    });
+    const data = await res.json();
+
+    // Una voce per rivista, con il numero di revisioni
+    const journals = await Promise.all(
+      (data.group || []).map(async (g) => {
+        const summaries = g['peer-review-group'].flatMap((pg) => pg['peer-review-summary']);
+        const groupId = summaries[0]['review-group-id']; // es. "issn:0021-9991"
+        let name = summaries[0]['convening-organization']?.name || groupId;
+
+        if (groupId.startsWith('issn:')) {
+          try {
+            const cr = await fetch(`https://api.crossref.org/journals/${groupId.slice(5)}`);
+            if (cr.ok) name = (await cr.json()).message.title;
+          } catch (_) { /* se Crossref non risponde, resta il nome dell'editore */ }
+        }
+        return { name, count: summaries.length };
+      })
+    );
+
+    list.innerHTML = '';
+    if (!journals.length) {
+      list.innerHTML = '<li>No review activity available.</li>';
+      return;
+    }
+    journals
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .forEach(({ name, count }) => {
+        const li = document.createElement('li');
+        li.textContent = count > 1 ? `${name} (${count} reviews)` : name;
+        list.appendChild(li);
+      });
+  } catch (err) {
+    list.innerHTML = '<li>Unable to load review activity.</li>';
+    console.error(err);
+  }
+});
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const box = document.getElementById('research-stats');
+  if (!box) return;
+  try {
+    const res = await fetch('https://api.openalex.org/authors/orcid:0009-0004-0483-0463');
+    if (!res.ok) throw new Error(res.status);
+    const a = await res.json();
+    const stats = {
+      works: a.works_count,
+      citations: a.cited_by_count,
+      h: a.summary_stats?.h_index ?? 0,
+      i10: a.summary_stats?.i10_index ?? 0,
+    };
+    box.querySelectorAll('[data-stat]').forEach((el) => countUp(el, stats[el.dataset.stat]));
+    
+  } catch (e) {
+    box.remove(); // se OpenAlex non risponde, la sezione sparisce senza errori visibili
+    console.error(e);
+  }
+});
+
+function countUp(el, target, ms = 1200) {
+  const t0 = performance.now();
+  const step = (now) => {
+    const p = Math.min((now - t0) / ms, 1);
+    el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))); // ease-out
+    if (p < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const logo = document.querySelector('.logo a');
+  if (!logo) return;
+  const CAP = '<img src="assets/cap.svg" alt="">';
+  const onHome = /\/(index\.html)?$/.test(location.pathname);
+  let clicks = 0, timer;
+
+  logo.addEventListener('click', (e) => {
+    if (!onHome) return; // sulle altre pagine il logo porta alla home come sempre
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    clicks++;
+    clearTimeout(timer);
+    timer = setTimeout(() => (clicks = 0), 1500);
+    if (clicks === 5) { clicks = 0; capRain(); }
+  });
+
+  function capRain() {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    for (let i = 0; i < 30; i++) {
+      const cap = document.createElement('div');
+      cap.className = 'falling-cap';
+      cap.innerHTML = CAP;
+      cap.style.left = Math.random() * 95 + 'vw';
+      cap.style.width = 30 + Math.random() * 40 + 'px';
+      cap.style.animationDuration = 2.5 + Math.random() * 2 + 's';
+      cap.style.animationDelay = Math.random() * 1.5 + 's';
+      cap.style.setProperty('--spin', Math.random() * 720 - 360 + 'deg');
+      document.body.appendChild(cap);
+      cap.addEventListener('animationend', () => cap.remove());
+    }
+  }
+});

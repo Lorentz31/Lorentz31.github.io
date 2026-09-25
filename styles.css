@@ -381,3 +381,32 @@ header {
 .logo a:hover::after {
   width: 100%;
 }
+
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem; }
+.stat-card { text-align: center; padding: 1rem; border-radius: 12px;
+             background: rgba(179, 255, 229, 0.06); border: 1px solid rgba(179, 255, 229, 0.25); }
+.stat-value { display: block; font-size: 2.2rem; font-weight: 700; color: #b3ffe5; font-variant-numeric: tabular-nums; }
+.stat-label { display: block; font-size: 0.85rem; opacity: 0.75; }
+
+.stats-source { font-size: 0.8em; opacity: 0.6; margin: 0.75rem 0 0; }
+
+#research-stats { margin-bottom: -6rem; }
+
+.logo a::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: -16px;
+  width: 34px;
+  height: 22px;
+  background: url("assets/cap.svg") no-repeat center / contain;
+  transform: rotate(-10deg);
+  transition: transform 0.3s ease;
+}
+.logo a:hover::before {
+  background-image: url("assets/cap-accent.svg");
+}
+
+.falling-cap { position: fixed; top: -60px; z-index: 9999; pointer-events: none; animation: cap-fall linear forwards; }
+.falling-cap img { width: 100%; height: auto; display: block; }
+@keyframes cap-fall { to { transform: translateY(calc(100vh + 120px)) rotate(var(--spin)); } }
